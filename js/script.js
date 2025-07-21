@@ -1,8 +1,8 @@
 class Node {
-  constructor(data, left = null, rigth = null) {
+  constructor(data, left = null, right = null) {
     this.data = data;
     this.left = left;
-    this.right = rigth;
+    this.right = right;
   }
 }
 
@@ -59,7 +59,44 @@ class Tree {
     }
   }
 
-  deleteItem(value) {}
+  deleteItem(value) {
+    if (this.root === null) {
+      console.log("Tree empty, no value to delete");
+      return;
+    }
+
+    let currNode = this.root;
+    let parentNode = null;
+
+    while (currNode !== null) {
+      if (value < currNode.data) {
+        parentNode = currNode;
+        currNode = currNode.left;
+      } else if (value > currNode.data) {
+        parentNode = currNode;
+        currNode = currNode.right;
+      } else {
+        if (currNode.left === null && currNode.right === null) {
+          if (parentNode === null) {
+            this.root = null;
+          }
+          // Cas 2: Le nœud à supprimer est une feuille et n'est pas la racine
+          else if (parentNode.left === currNode) {
+            parentNode.left = null;
+          } else {
+            parentNode.right = null;
+          }
+          console.log(`The value : ${value} has been deleted`);
+          return;
+        } else {
+          console.log(`The value : ${value} has children, not deleting yet.`);
+          return;
+        }
+      }
+    }
+
+    console.log(`The value : ${value} is not in the tree, nothing to delete`);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -81,9 +118,11 @@ const numbers = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 10, 20, 15];
 
 const myTree = new Tree(numbers);
 
-prettyPrint(myTree.root);
-
 myTree.insert(2332);
 myTree.insert(2);
+
+prettyPrint(myTree.root);
+
+myTree.deleteItem(324);
 
 prettyPrint(myTree.root);
