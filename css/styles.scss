@@ -1,0 +1,127 @@
+// ==============================================
+// Variables
+// ==============================================
+// Colors
+$primary-blue: #5367ff;
+$light-primary-blue: #7f8dfc;
+$light-accent-red: #ff8787;
+$accent-red: #fa5757;
+$white: #ffffff;
+$black: #000000;
+$light-grey: #f0f0f0;
+$medium-grey: #9194a2;
+$dark-grey: #242940;
+
+// Typography
+$font-body: "Montserrat", Arial, sans-serif;
+$font-size-extra-small: clamp(8px, 1.25vw + 0.25rem, 12.5px);
+$font-size-small: clamp(12px, 1.875vw + 0.375rem, 18.75px);
+$font-size-medium: clamp(16px, 2.5vw + 0.5rem, 25px);
+$font-size-large: clamp(20px, 3.125vw + 0.625rem, 31.25px);
+
+// Spacing
+$spacing-sm: 1rem;
+$spacing-md: 2rem;
+$spacing-lg: 4rem;
+
+// ==============================================
+// Utilities
+// ==============================================
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+// ==============================================
+// Base Styles
+// ==============================================
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Font faces
+@font-face {
+  font-family: "Montserrat";
+  src: url("/home/odinstudent/repos/odin-webpack-template/src/font/Montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/home/odinstudent/repos/odin-webpack-template/src/font/Rubik/Rubik-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Base elements
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: $font-body;
+  color: $dark-grey;
+  background-color: $primary-blue;
+  font-weight: 400;
+}
+
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  color: $dark-grey;
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+// Media elements
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+// Form elements
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+// ==============================================
+// Footer
+// ==============================================
+footer {
+  color: $light-grey;
+  text-align: center;
+  position: fixed;
+  bottom: 1vh;
+  left: 0;
+  width: 100%;
+  font-family: $font-body;
+  font-size: $font-size-small;
+}

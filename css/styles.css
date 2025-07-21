@@ -1,0 +1,82 @@
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("/home/odinstudent/repos/odin-webpack-template/src/font/Montserrat/Montserrat-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("/home/odinstudent/repos/odin-webpack-template/src/font/Rubik/Rubik-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Montserrat", Arial, sans-serif;
+  color: #242940;
+  background-color: #5367ff;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+  color: #242940;
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+footer {
+  color: #f0f0f0;
+  text-align: center;
+  position: fixed;
+  bottom: 1vh;
+  left: 0;
+  width: 100%;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: clamp(12px, 1.875vw + 0.375rem, 18.75px);
+}/*# sourceMappingURL=styles.css.map */
