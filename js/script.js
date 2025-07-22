@@ -102,6 +102,28 @@ class Tree {
     }
     return node;
   }
+
+  find(value) {
+    let currNode = this.root;
+    if (currNode === null) {
+      console.log(`The value : ${value} is not in the tree (empty tree)`);
+      return null;
+    }
+
+    while (currNode !== null) {
+      if (value < currNode) {
+        currNode = currNode.left;
+      } else if (value > currNode) {
+        currNode = currNode.right;
+      } else {
+        console.log(`Found Node with value = ${value} !`);
+        return currNode;
+      }
+    }
+
+    console.log(`The value: ${value} is not in the tree.`);
+    return null;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
