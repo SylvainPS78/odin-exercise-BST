@@ -124,6 +124,35 @@ class Tree {
     console.log(`The value: ${value} is not in the tree.`);
     return null;
   }
+
+  levelOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function is required");
+    }
+
+    if (this.root === null) {
+      console.log(`Can't execute ${callback} function, tree is empty`);
+      return null;
+    }
+
+    let nodeQueue = [];
+    nodeQueue.push(this.root);
+
+    try {
+      while (nodeQueue.length > 0) {
+        let currNode = nodeQueue.shift();
+        callback(currNode);
+        if (currNode.left !== null) {
+          nodeQueue.push(currNode.left);
+        }
+        if (currNode.right !== null) {
+          nodeQueue.push(currNode.right);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -153,3 +182,5 @@ prettyPrint(myTree.root);
 myTree.deleteItem(324);
 
 prettyPrint(myTree.root);
+
+myTree.levelOrderForEach(console.log);
