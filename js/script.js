@@ -111,9 +111,9 @@ class Tree {
     }
 
     while (currNode !== null) {
-      if (value < currNode) {
+      if (value < currNode.data) {
         currNode = currNode.left;
-      } else if (value > currNode) {
+      } else if (value > currNode.data) {
         currNode = currNode.right;
       } else {
         console.log(`Found Node with value = ${value} !`);
@@ -239,6 +239,51 @@ class Tree {
       callback(node);
     }
   }
+
+  height(value) {
+    //distance from leaf
+    const targetNode = this.find(value);
+    if (targetNode === null) {
+      return null;
+    }
+
+    return this._calculateHeight(targetNode);
+  }
+
+  _calculateHeight(node) {
+    if (node === null) {
+      return -1;
+    }
+    const leftHeight = this._calculateHeight(node.left);
+    const rightHeight = this._calculateHeight(node.right);
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  depth(value) {
+    if (this.root === null) {
+      return null;
+    }
+
+    if (this.root.data === value) {
+      return 0;
+    }
+
+    let currNode = this.root;
+    let depthCount = 0;
+
+    while (currNode !== null && currNode.data !== value) {
+      if (value < currNode.data) {
+        currNode = currNode.left;
+      } else {
+        currNode = currNode.right;
+      }
+      depthCount++;
+    }
+    if (currNode === null) {
+      return null;
+    }
+    return depthCount;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -269,14 +314,6 @@ myTree.deleteItem(324);
 
 prettyPrint(myTree.root);
 
-console.log("levelOrder : \n");
-myTree.levelOrderForEach((node) => console.log(node.data));
+console.log(myTree.height(2));
 
-console.log("preOrder : \n");
-myTree.preOrderForEach((node) => console.log(node.data));
-
-console.log("inOrder : \n");
-myTree.inOrderForEach((node) => console.log(node.data));
-
-console.log("postOrder : \n");
-myTree.postOrderForEach((node) => console.log(node.data));
+console.log(myTree.depth(9));
