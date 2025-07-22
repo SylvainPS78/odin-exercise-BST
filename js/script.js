@@ -153,6 +153,55 @@ class Tree {
       console.error(e);
     }
   }
+
+  preOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function is required");
+    }
+
+    try {
+      if (this.root === null) {
+        console.log(`Can't execute ${callback} function, tree is empty`);
+        return null;
+      }
+
+      this._preOrderEachRecursive(this.root, callback);
+    } catch (e) {
+      console.error("Error :", e);
+    }
+  }
+
+  _preOrderEachRecursive(node, callback) {
+    if (node === null) {
+      return;
+    } else {
+      callback(node);
+      this._preOrderEachRecursive(node.left, callback);
+      this._preOrderEachRecursive(node.right, callback);
+    }
+  }
+
+  inOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function is required");
+    }
+
+    if (this.root === null) {
+      console.log(`Can't execute ${callback} function, tree is empty`);
+      return null;
+    }
+  }
+
+  postOrderForEach(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("Callback function is required");
+    }
+
+    if (this.root === null) {
+      console.log(`Can't execute ${callback} function, tree is empty`);
+      return null;
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -183,4 +232,8 @@ myTree.deleteItem(324);
 
 prettyPrint(myTree.root);
 
-myTree.levelOrderForEach(console.log);
+console.log("levelOrder : \n");
+myTree.levelOrderForEach((node) => console.log(node.data));
+
+console.log("preOrder : \n");
+myTree.preOrderForEach((node) => console.log(node.data));
