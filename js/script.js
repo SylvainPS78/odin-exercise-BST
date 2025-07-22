@@ -155,6 +155,7 @@ class Tree {
   }
 
   preOrderForEach(callback) {
+    //root left right
     if (typeof callback !== "function") {
       throw new Error("Callback function is required");
     }
@@ -182,24 +183,60 @@ class Tree {
   }
 
   inOrderForEach(callback) {
+    //left root right
+
     if (typeof callback !== "function") {
       throw new Error("Callback function is required");
     }
 
-    if (this.root === null) {
-      console.log(`Can't execute ${callback} function, tree is empty`);
-      return null;
+    try {
+      if (this.root === null) {
+        console.log(`Can't execute ${callback} function, tree is empty`);
+        return null;
+      }
+
+      this._inOrderEachRecursive(this.root, callback);
+    } catch (e) {
+      console.error("Error :", e);
+    }
+  }
+
+  _inOrderEachRecursive(node, callback) {
+    if (node === null) {
+      return;
+    } else {
+      this._inOrderEachRecursive(node.left, callback);
+      callback(node);
+      this._inOrderEachRecursive(node.right, callback);
     }
   }
 
   postOrderForEach(callback) {
+    //left right root
+
     if (typeof callback !== "function") {
       throw new Error("Callback function is required");
     }
 
-    if (this.root === null) {
-      console.log(`Can't execute ${callback} function, tree is empty`);
-      return null;
+    try {
+      if (this.root === null) {
+        console.log(`Can't execute ${callback} function, tree is empty`);
+        return null;
+      }
+
+      this._postOrderEachRecursive(this.root, callback);
+    } catch (e) {
+      console.error("Error :", e);
+    }
+  }
+
+  _postOrderEachRecursive(node, callback) {
+    if (node === null) {
+      return;
+    } else {
+      this._postOrderEachRecursive(node.left, callback);
+      this._postOrderEachRecursive(node.right, callback);
+      callback(node);
     }
   }
 }
@@ -237,3 +274,9 @@ myTree.levelOrderForEach((node) => console.log(node.data));
 
 console.log("preOrder : \n");
 myTree.preOrderForEach((node) => console.log(node.data));
+
+console.log("inOrder : \n");
+myTree.inOrderForEach((node) => console.log(node.data));
+
+console.log("postOrder : \n");
+myTree.postOrderForEach((node) => console.log(node.data));
