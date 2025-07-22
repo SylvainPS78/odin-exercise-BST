@@ -58,44 +58,49 @@ class Tree {
       }
     }
   }
-
   deleteItem(value) {
-    if (this.root === null) {
-      console.log("Tree empty, no value to delete");
-      return;
+    this.root = this._deleteNodeRecursive(this.root, value);
+  }
+
+  _deleteNodeRecursive(node, value) {
+    // Base Case: If the tree is empty or the value is not found
+    if (node === null) {
+      console.log(`The value : ${value} is not in the tree, nothing to delete`);
+      return null;
     }
 
-    let currNode = this.root;
-    let parentNode = null;
+    // Traverse the tree to find the node to delete
+    if (value < node.data) {
+      node.left = this._deleteNodeRecursive(node.left, value);
+    } else if (value > node.data) {
+      node.right = this._deleteNodeRecursive(node.right, value);
+    } else {
+      // Node to be deleted found!
 
-    while (currNode !== null) {
-      if (value < currNode.data) {
-        parentNode = currNode;
-        currNode = currNode.left;
-      } else if (value > currNode.data) {
-        parentNode = currNode;
-        currNode = currNode.right;
-      } else {
-        if (currNode.left === null && currNode.right === null) {
-          if (parentNode === null) {
-            this.root = null;
-          }
-          // Cas 2: Le nœud à supprimer est une feuille et n'est pas la racine
-          else if (parentNode.left === currNode) {
-            parentNode.left = null;
-          } else {
-            parentNode.right = null;
-          }
-          console.log(`The value : ${value} has been deleted`);
-          return;
-        } else {
-          console.log(`The value : ${value} has children, not deleting yet.`);
-          return;
-        }
+      // Case 1: Node has no children or only one child
+      if (node.left === null) {
+        console.log(`The value : ${value} has been deleted`);
+        return node.right;
+      } else if (node.right === null) {
+        console.log(`The value : ${value} has been deleted`);
+        return node.left;
       }
-    }
 
-    console.log(`The value : ${value} is not in the tree, nothing to delete`);
+      // Case 2: Node has two children
+      // Find the in-order successor (smallest node in the right subtree)
+      // Integrate _findMin logic directly
+      let successor = node.right;
+      while (successor.left !== null) {
+        successor = successor.left;
+      }
+
+      // Replace the current node's data with the successor's data
+      node.data = successor.data;
+      // Delete the in-order successor from the right subtree
+      node.right = this._deleteNodeRecursive(node.right, successor.data);
+      console.log(`The value : ${value} has been deleted`);
+    }
+    return node;
   }
 }
 
