@@ -311,6 +311,24 @@ class Tree {
       height: currentHeight,
     };
   }
+
+  rebalance() {
+    let newArray = [];
+    this._inOrderTreeRecursive(this.root, newArray);
+    this.root = buildTree(newArray);
+    return;
+  }
+
+  _inOrderTreeRecursive(node, array) {
+    if (node === null) {
+      return;
+    }
+
+    this._inOrderTreeRecursive(node.left, array);
+    array.push(node.data);
+    this._inOrderTreeRecursive(node.right, array);
+    return;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -339,5 +357,9 @@ console.log(myTree.isBalanced());
 myTree.insert(2332);
 myTree.insert(2);
 
+prettyPrint(myTree.root);
+console.log(myTree.isBalanced());
+
+myTree.rebalance();
 prettyPrint(myTree.root);
 console.log(myTree.isBalanced());
