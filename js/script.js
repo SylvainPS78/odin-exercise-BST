@@ -344,22 +344,73 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+function randomArray(size) {
+  let randomArray = [];
+  for (let i = 0; i < size; i++) {
+    randomArray.push(Math.floor(Math.random() * (100 + 1)));
+  }
+  return randomArray;
+}
+
 // ------------- Exemple -------------------
 
-const numbers = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 10, 20, 15];
+const numbers = randomArray(10);
 
 const myTree = new Tree(numbers);
 
 prettyPrint(myTree.root);
-
 console.log(myTree.isBalanced());
 
-myTree.insert(2332);
-myTree.insert(2);
+console.log(`\n level order values`);
+myTree.levelOrderForEach((node) => {
+  console.log(node.data);
+});
+
+console.log(`\n pre order values`);
+myTree.preOrderForEach((node) => {
+  console.log(node.data);
+});
+
+console.log(`\n post order values`);
+myTree.postOrderForEach((node) => {
+  console.log(node.data);
+});
+
+console.log(`\n in order values`);
+myTree.inOrderForEach((node) => {
+  console.log(node.data);
+});
+
+myTree.insert(104);
+myTree.insert(153);
+myTree.insert(235);
+myTree.insert(532);
+myTree.insert(325);
 
 prettyPrint(myTree.root);
 console.log(myTree.isBalanced());
 
 myTree.rebalance();
+
 prettyPrint(myTree.root);
 console.log(myTree.isBalanced());
+
+console.log(`\n level order values`);
+myTree.levelOrderForEach((node) => {
+  console.log(node.data);
+});
+
+console.log(`\n pre order values`);
+myTree.preOrderForEach((node) => {
+  console.log(node.data);
+});
+
+console.log(`\n post order values`);
+myTree.postOrderForEach((node) => {
+  console.log(node.data);
+});
+
+console.log(`\n in order values`);
+myTree.inOrderForEach((node) => {
+  console.log(node.data);
+});
