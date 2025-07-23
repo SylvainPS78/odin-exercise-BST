@@ -284,6 +284,33 @@ class Tree {
     }
     return depthCount;
   }
+
+  isBalanced() {
+    const result = this._checkBalanceAndHeightRecursive(this.root);
+    return result.isBalanced;
+  }
+
+  _checkBalanceAndHeightRecursive(node) {
+    if (node === null) {
+      return { isBalanced: true, height: -1 };
+    }
+
+    const leftResult = this._checkBalanceAndHeightRecursive(node.left);
+    const rightResult = this._checkBalanceAndHeightRecursive(node.right);
+
+    if (!leftResult.isBalanced || !rightResult.isBalanced) {
+      return { isBalanced: false, height: 0 };
+    }
+
+    const heightDifference = Math.abs(leftResult.height - rightResult.height);
+    const isCurrentNodeBalanced = heightDifference <= 1;
+    const currentHeight = Math.max(leftResult.height, rightResult.height) + 1;
+
+    return {
+      isBalanced: isCurrentNodeBalanced,
+      height: currentHeight,
+    };
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -305,15 +332,12 @@ const numbers = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 10, 20, 15];
 
 const myTree = new Tree(numbers);
 
+prettyPrint(myTree.root);
+
+console.log(myTree.isBalanced());
+
 myTree.insert(2332);
 myTree.insert(2);
 
 prettyPrint(myTree.root);
-
-myTree.deleteItem(324);
-
-prettyPrint(myTree.root);
-
-console.log(myTree.height(2));
-
-console.log(myTree.depth(9));
+console.log(myTree.isBalanced());
